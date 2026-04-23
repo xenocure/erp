@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $pengeluaran = Transaksi::where('tipe','pengeluaran')
             ->sum('jumlah') ?? 0;
 
-        // 🔥 TAMBAHAN: Financial Score
+        // TAMBAHAN: Financial Score
         $score = 100;
 
         if ($pengeluaran > $pemasukan) {

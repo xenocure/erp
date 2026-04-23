@@ -15,7 +15,7 @@ Route::get('/', fn() => view('login'))->name('login');
 // proses login
 Route::post('/login', [AuthController::class, 'login']);
 
-// logout (WAJIB ADA)
+// logout 
 Route::get('/logout', [AuthController::class, 'logout']);
 
 
