@@ -33,33 +33,34 @@
     <div class="col-md-3">
         <div class="card p-3">
             <h5>Sisa Saldo</h5>
-            <h3 class="{{ ($saldo + $pemasukan - $pengeluaran) >= 0 ? 'text-success' : 'text-danger' }}">
-                Rp {{ number_format($saldo + $pemasukan - $pengeluaran) }}
+            <h3 class="{{ $saldo >= 0 ? 'text-success' : 'text-danger' }}">
+                Rp {{ number_format($saldo) }}
             </h3>
         </div>
     </div>
 
-</div>
+    <!-- 🔥 Financial Health (dipindah ke dalam row) -->
+    <div class="col-md-3 mt-3">
+        <div class="card p-3">
+            <h5>Financial Health</h5>
 
-<div class="col-md-3">
-    <div class="card p-3">
-        <h5>Financial Health</h5>
+            <h3 class="
+                @if($score >= 75) text-success
+                @elseif($score >= 50) text-warning
+                @else text-danger
+                @endif
+            ">
+                {{ $score }} / 100
+            </h3>
 
-        <h3 class="
-            @if($score >= 75) text-success
-            @elseif($score >= 50) text-warning
-            @else text-danger
-            @endif
-        ">
-            {{ $score }} / 100
-        </h3>
+            <small>Status: {{ $status }}</small>
 
-        <small>Status: {{ $status }}</small>
-
-        <div class="progress mt-2">
-            <div class="progress-bar" style="width: {{ $score }}%"></div>
+            <div class="progress mt-2">
+                <div class="progress-bar" style="width: {{ $score }}%"></div>
+            </div>
         </div>
     </div>
+
 </div>
 
 <a href="/transaksi/create" class="btn btn-success mt-3">

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Transaksi;
 use App\Models\Kategori;
@@ -33,13 +32,18 @@ class TransaksiController extends Controller
             'tipe' => 'required'
         ]);
 
+        // ambil wallet dulu
+        $wallet = Wallet::find($r->wallet_id);
+
+        // 🔥 CEK SALDO (biar gak minus brutal)
+        if ($r->tipe == 'pengeluaran' && $wallet->saldo < $r->jumlah) {
+            return back()->with('error', 'Saldo tidak cukup');
+        }
+
         // simpan transaksi
         Transaksi::create($r->all());
 
-        // ambil wallet
-        $wallet = Wallet::find($r->wallet_id);
-
-        // update saldo otomatis
+        // 🔥 update saldo
         if ($r->tipe == 'pemasukan') {
             $wallet->saldo += $r->jumlah;
         } else {
