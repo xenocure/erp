@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Wallet;
 use App\Models\Transaksi;
+use App\Models\Budget;
+use App\Models\Kategori;
 
 class DashboardController extends Controller
 {
@@ -25,6 +27,7 @@ class DashboardController extends Controller
         $expenseRatio = 0;
 
         if ($pemasukan > 0) {
+
             $expenseRatio = $pengeluaran / $pemasukan;
 
             if ($expenseRatio > 1) {
@@ -34,30 +37,56 @@ class DashboardController extends Controller
             }
         }
 
+        // cek saldo
         if ($saldo < 500000) {
+
             $score -= 20;
+
         } elseif ($saldo < 1000000) {
+
             $score -= 10;
         }
 
+        // batasi score
         $score = max(0, min(100, round($score)));
 
-        // status
+        // status financial
         if ($score >= 75) {
+
             $status = 'Sehat';
+
         } elseif ($score >= 50) {
+
             $status = 'Cukup';
+
         } else {
+
             $status = 'Buruk';
         }
 
+        // tambahan dashboard
+        $totalBudget = Budget::sum('limit_budget');
+
+        $totalTransaksi = Transaksi::count();
+
+        $totalWallet = Wallet::count();
+
+        $totalKategori = Kategori::count();
+
         return view('dashboard', [
+
             'saldo' => $saldo,
             'pemasukan' => $pemasukan,
             'pengeluaran' => $pengeluaran,
+
             'score' => $score,
             'status' => $status,
-            'expenseRatio' => $expenseRatio
+            'expenseRatio' => $expenseRatio,
+
+            'totalBudget' => $totalBudget,
+            'totalTransaksi' => $totalTransaksi,
+            'totalWallet' => $totalWallet,
+            'totalKategori' => $totalKategori
         ]);
     }
 }

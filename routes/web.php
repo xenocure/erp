@@ -6,7 +6,8 @@ use App\Http\Controllers\{
     DashboardController,
     TransaksiController,
     KategoriController,
-    WalletController
+    WalletController,
+    BudgetController
 };
 
 // halaman login
@@ -27,5 +28,6 @@ Route::middleware(['authcheck'])->group(function () {
     Route::resource('/transaksi', TransaksiController::class);
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/wallet', WalletController::class);
+    Route::resource('/budget', BudgetController::class);
 
 });
