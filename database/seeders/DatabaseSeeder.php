@@ -18,14 +18,5 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin123')
         ]);
 
-        DB::table('wallet')->insert([
-            'nama_wallet' => 'Wallet Utama',
-            'saldo' => 100000000
-        ]);
-
-        DB::table('kategori')->insert([
-            ['nama'=>'Gaji','tipe'=>'pemasukan'],
-            ['nama'=>'Makan','tipe'=>'pengeluaran']
-        ]);
     }
 }
