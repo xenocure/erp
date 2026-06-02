@@ -12,8 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('budgets', function (Blueprint $table) {
+
             $table->id();
+
+            $table->unsignedBigInteger('kategori_id');
+
+            $table->decimal('limit_budget', 15, 2);
+
+            $table->string('bulan');
+
+            $table->integer('tahun');
+
             $table->timestamps();
+
         });
     }
 

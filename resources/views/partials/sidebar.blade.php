@@ -6,6 +6,7 @@
     <a href="/transaksi" class="d-block text-white mb-2">Transaksi</a>
     <a href="/kategori" class="d-block text-white mb-2">Kategori</a>
     <a href="/wallet" class="d-block text-white mb-2">Wallet</a>
+    <a href="/budget" class="d-block text-white mb-2">Budget</a>
 
     <hr>
     <a href="/logout" class="text-white">Logout</a>

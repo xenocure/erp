@@ -203,13 +203,24 @@
 
 @endif
 
-@if($saldo < 500000)
+<!-- Alert -->
+@if($expenseRatio > 1)
 
-<div class="alert alert-warning mt-3">
-    Saldo mulai menipis
+<div class="alert alert-danger mt-3">
+    Pengeluaran melebihi pemasukan
 </div>
 
 @endif
+
+@if($saldo < 5000000)
+
+<div class="alert alert-warning mt-3">
+    <strong>Peringatan!</strong>
+    Saldo berada di bawah batas minimum Rp 5.000.000.
+    Sisa saldo: Rp {{ number_format($saldo) }}
+</div>
+
+@endif  
 
 <!-- Tombol -->
 <a href="/transaksi/create"
