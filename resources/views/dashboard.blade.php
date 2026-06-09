@@ -1,3 +1,6 @@
+Berikut versi dashboard-mu yang sudah langsung aku ubah pada bagian **Penggunaan Budget** dan **Alert + Tombol**:
+
+```blade
 @extends('layouts.app')
 
 @section('content')
@@ -76,7 +79,7 @@
             </small>
 
             <div class="progress mt-2">
-
+                
                 <div class="progress-bar"
                      style="width: {{ $score }}%">
                 </div>
@@ -123,6 +126,8 @@
                     $budgetPercent = ($pengeluaran / $totalBudget) * 100;
                 }
 
+                $progressWidth = min($budgetPercent, 100);
+
             @endphp
 
             <div class="progress mt-2">
@@ -141,7 +146,7 @@
 
                 "
 
-                style="width: {{ $budgetPercent }}%">
+                style="width: {{ $progressWidth }}%">
                 </div>
 
             </div>
@@ -198,16 +203,8 @@
 @if($expenseRatio > 1)
 
 <div class="alert alert-danger mt-3">
-    Pengeluaran melebihi pemasukan
-</div>
-
-@endif
-
-<!-- Alert -->
-@if($expenseRatio > 1)
-
-<div class="alert alert-danger mt-3">
-    Pengeluaran melebihi pemasukan
+    <strong>Peringatan!</strong>
+    Pengeluaran melebihi pemasukan.
 </div>
 
 @endif
@@ -220,14 +217,28 @@
     Sisa saldo: Rp {{ number_format($saldo) }}
 </div>
 
-@endif  
+@endif
 
 <!-- Tombol -->
-<a href="/transaksi/create"
-   class="btn btn-success mt-3">
+<div class="mt-3">
 
-    + Tambah Transaksi
+    <a href="/transaksi/create"
+       class="btn btn-success">
 
-</a>
+        + Tambah Transaksi
+
+    </a>
+
+    <a href="/laporan/pdf"
+       class="btn btn-danger ms-2">
+
+        Download Laporan PDF
+
+    </a>
+
+</div>
 
 @endsection
+
+
+

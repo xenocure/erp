@@ -16,7 +16,7 @@ Route::get('/', fn() => view('login'))->name('login');
 // proses login
 Route::post('/login', [AuthController::class, 'login']);
 
-// logout 
+// logout
 Route::get('/logout', [AuthController::class, 'logout']);
 
 
@@ -24,6 +24,9 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::middleware(['authcheck'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    // DOWNLOAD PDF
+    Route::get('/laporan/pdf', [DashboardController::class, 'downloadPdf']);
 
     Route::resource('/transaksi', TransaksiController::class);
     Route::resource('/kategori', KategoriController::class);

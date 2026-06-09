@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Wallet;
 use App\Models\Transaksi;
 use App\Models\Budget;
