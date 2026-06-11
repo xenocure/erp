@@ -90,4 +90,27 @@ class DashboardController extends Controller
             'totalKategori' => $totalKategori
         ]);
     }
+
+    // Download laporan PDF
+    public function downloadPdf()
+    {
+        $transaksi = Transaksi::all();
+
+        $saldo = Wallet::sum('saldo') ?? 0;
+
+        $pemasukan = Transaksi::where('tipe', 'pemasukan')
+            ->sum('jumlah') ?? 0;
+
+        $pengeluaran = Transaksi::where('tipe', 'pengeluaran')
+            ->sum('jumlah') ?? 0;
+
+        $pdf = Pdf::loadView('laporan.pdf', [
+                'transaksi' => $transaksi,
+                'saldo' => $saldo,
+                'pemasukan' => $pemasukan,
+                'pengeluaran' => $pengeluaran
+        ]);
+
+    return $pdf->download('laporan-keuangan.pdf');
+    }
 }
