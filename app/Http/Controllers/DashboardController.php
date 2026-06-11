@@ -12,14 +12,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // total saldo wallet
+        // Total saldo wallet
         $saldo = Wallet::sum('saldo') ?? 0;
 
-        // pemasukan
+        // Total pemasukan
         $pemasukan = Transaksi::where('tipe', 'pemasukan')
             ->sum('jumlah') ?? 0;
 
-        // pengeluaran
+        // Total pengeluaran
         $pengeluaran = Transaksi::where('tipe', 'pengeluaran')
             ->sum('jumlah') ?? 0;
 
@@ -38,7 +38,7 @@ class DashboardController extends Controller
             }
         }
 
-        // cek saldo
+        // Cek saldo
         if ($saldo < 500000) {
 
             $score -= 20;
@@ -48,10 +48,10 @@ class DashboardController extends Controller
             $score -= 10;
         }
 
-        // batasi score
+        // Batasi skor 0–100
         $score = max(0, min(100, round($score)));
 
-        // status financial
+        // Status financial
         if ($score >= 75) {
 
             $status = 'Sehat';
@@ -65,7 +65,7 @@ class DashboardController extends Controller
             $status = 'Buruk';
         }
 
-        // tambahan dashboard
+        // Data dashboard lainnya
         $totalBudget = Budget::sum('limit_budget');
 
         $totalTransaksi = Transaksi::count();
@@ -75,19 +75,18 @@ class DashboardController extends Controller
         $totalKategori = Kategori::count();
 
         return view('dashboard', [
+            'saldo'            => $saldo,
+            'pemasukan'        => $pemasukan,
+            'pengeluaran'      => $pengeluaran,
 
-            'saldo' => $saldo,
-            'pemasukan' => $pemasukan,
-            'pengeluaran' => $pengeluaran,
+            'score'            => $score,
+            'status'           => $status,
+            'expenseRatio'     => $expenseRatio,
 
-            'score' => $score,
-            'status' => $status,
-            'expenseRatio' => $expenseRatio,
-
-            'totalBudget' => $totalBudget,
-            'totalTransaksi' => $totalTransaksi,
-            'totalWallet' => $totalWallet,
-            'totalKategori' => $totalKategori
+            'totalBudget'      => $totalBudget,
+            'totalTransaksi'   => $totalTransaksi,
+            'totalWallet'      => $totalWallet,
+            'totalKategori'    => $totalKategori
         ]);
     }
 
@@ -104,13 +103,25 @@ class DashboardController extends Controller
         $pengeluaran = Transaksi::where('tipe', 'pengeluaran')
             ->sum('jumlah') ?? 0;
 
+        $totalBudget = Budget::sum('limit_budget');
+
+        $totalTransaksi = Transaksi::count();
+
+        $totalWallet = Wallet::count();
+
+        $totalKategori = Kategori::count();
+
         $pdf = Pdf::loadView('laporan.pdf', [
-                'transaksi' => $transaksi,
-                'saldo' => $saldo,
-                'pemasukan' => $pemasukan,
-                'pengeluaran' => $pengeluaran
+            'transaksi'       => $transaksi,
+            'saldo'           => $saldo,
+            'pemasukan'       => $pemasukan,
+            'pengeluaran'     => $pengeluaran,
+            'totalBudget'     => $totalBudget,
+            'totalTransaksi'  => $totalTransaksi,
+            'totalWallet'     => $totalWallet,
+            'totalKategori'   => $totalKategori,
         ]);
 
-    return $pdf->download('laporan-keuangan.pdf');
+        return $pdf->download('laporan-keuangan.pdf');
     }
 }
