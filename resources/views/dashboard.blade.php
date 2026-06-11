@@ -1,6 +1,3 @@
-Berikut versi dashboard-mu yang sudah langsung aku ubah pada bagian **Penggunaan Budget** dan **Alert + Tombol**:
-
-```blade
 @extends('layouts.app')
 
 @section('content')
@@ -79,7 +76,7 @@ Berikut versi dashboard-mu yang sudah langsung aku ubah pada bagian **Penggunaan
             </small>
 
             <div class="progress mt-2">
-                
+
                 <div class="progress-bar"
                      style="width: {{ $score }}%">
                 </div>
@@ -126,6 +123,7 @@ Berikut versi dashboard-mu yang sudah langsung aku ubah pada bagian **Penggunaan
                     $budgetPercent = ($pengeluaran / $totalBudget) * 100;
                 }
 
+                // Progress bar maksimal 100%
                 $progressWidth = min($budgetPercent, 100);
 
             @endphp
@@ -152,7 +150,13 @@ Berikut versi dashboard-mu yang sudah langsung aku ubah pada bagian **Penggunaan
             </div>
 
             <small>
-                {{ round($budgetPercent) }}% digunakan
+
+                @if($budgetPercent >= 100)
+                    100% digunakan (Budget terlampaui)
+                @else
+                    {{ round($budgetPercent) }}% digunakan
+                @endif
+
             </small>
 
         </div>
@@ -199,7 +203,7 @@ Berikut versi dashboard-mu yang sudah langsung aku ubah pada bagian **Penggunaan
 
 </div>
 
-<!-- Alert -->
+<!-- Alert Pengeluaran -->
 @if($expenseRatio > 1)
 
 <div class="alert alert-danger mt-3">
@@ -209,6 +213,7 @@ Berikut versi dashboard-mu yang sudah langsung aku ubah pada bagian **Penggunaan
 
 @endif
 
+<!-- Alert Saldo Minimum -->
 @if($saldo < 5000000)
 
 <div class="alert alert-warning mt-3">
@@ -239,6 +244,3 @@ Berikut versi dashboard-mu yang sudah langsung aku ubah pada bagian **Penggunaan
 </div>
 
 @endsection
-
-
-
