@@ -1,29 +1,106 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Laporan ERP</title>
-</head>
-<body>
+@extends('layouts.laporan')
 
-    <h2>Laporan Keuangan ERP</h2>
+@section('content')
 
-    <hr>
+<h3>Ringkasan Keuangan</h3>
 
-    <p>Total Saldo : Rp {{ number_format($saldo) }}</p>
+<table>
 
-    <p>Total Pemasukan : Rp {{ number_format($pemasukan) }}</p>
 
-    <p>Total Pengeluaran : Rp {{ number_format($pengeluaran) }}</p>
+<tr>
+    <td><b>Total Saldo</b></td>
+    <td>Rp {{ number_format($saldo) }}</td>
+</tr>
 
-    <p>Total Budget : Rp {{ number_format($totalBudget) }}</p>
+<tr>
+    <td><b>Total Pemasukan</b></td>
+    <td>Rp {{ number_format($pemasukan) }}</td>
+</tr>
 
-    <hr>
+<tr>
+    <td><b>Total Pengeluaran</b></td>
+    <td>Rp {{ number_format($pengeluaran) }}</td>
+</tr>
 
-    <p>Total Transaksi : {{ $totalTransaksi }}</p>
+<tr>
+    <td><b>Total Budget</b></td>
+    <td>Rp {{ number_format($totalBudget) }}</td>
+</tr>
+```
 
-    <p>Total Wallet : {{ $totalWallet }}</p>
+</table>
 
-    <p>Total Kategori : {{ $totalKategori }}</p>
+<br>
 
-</body>
-</html>
+<h3>Statistik Sistem</h3>
+
+<table>
+
+```
+<tr>
+    <td><b>Total Transaksi</b></td>
+    <td>{{ $totalTransaksi }}</td>
+</tr>
+
+<tr>
+    <td><b>Total Wallet</b></td>
+    <td>{{ $totalWallet }}</td>
+</tr>
+
+<tr>
+    <td><b>Total Kategori</b></td>
+    <td>{{ $totalKategori }}</td>
+</tr>
+```
+
+</table>
+
+<br>
+
+<h3>Detail Transaksi</h3>
+
+<table>
+
+```
+<thead>
+
+    <tr>
+        <th>No</th>
+        <th>Tipe</th>
+        <th>Jumlah</th>
+    </tr>
+
+</thead>
+
+<tbody>
+
+    @forelse($transaksi as $item)
+
+    <tr>
+
+        <td>{{ $loop->iteration }}</td>
+
+        <td>{{ ucfirst($item->tipe) }}</td>
+
+        <td>
+            Rp {{ number_format($item->jumlah) }}
+        </td>
+
+    </tr>
+
+    @empty
+
+    <tr>
+        <td colspan="3">
+            Tidak ada data transaksi
+        </td>
+    </tr>
+
+    @endforelse
+
+</tbody>
+
+
+</table>
+
+@endsection
