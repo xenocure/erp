@@ -9,14 +9,14 @@ class WalletController extends Controller
 {
     public function index()
     {
-        return view('wallet.index', [
+        return view('Wallet.index', [
             'data' => Wallet::all()
         ]);
     }
 
     public function create()
     {
-        return view('wallet.create');
+        return view('Wallet.create');
     }
 
     public function store(Request $r)
@@ -31,7 +31,7 @@ class WalletController extends Controller
             'saldo' => $r->saldo
         ]);
 
-        return redirect('/wallet');
+        return redirect('/Wallet');
     }
 
     public function update(Request $r, $id)

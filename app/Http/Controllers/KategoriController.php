@@ -9,14 +9,14 @@ class KategoriController extends Controller
 {
     public function index()
     {
-        return view('kategori.index', [
+        return view('Kategori.index', [
             'data' => Kategori::all()
         ]);
     }
 
     public function create()
     {
-        return view('kategori.create');
+        return view('Kategori.create');
     }
 
     public function store(Request $r)
@@ -31,7 +31,7 @@ class KategoriController extends Controller
             'tipe' => $r->tipe
         ]);
 
-        return redirect('/kategori');
+        return redirect('/Kategori');
     }
 
     public function destroy($id)

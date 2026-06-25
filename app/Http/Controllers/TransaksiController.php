@@ -11,12 +11,12 @@ class TransaksiController extends Controller
     public function index()
     {
         $data = Transaksi::latest()->get();
-        return view('transaksi.index', compact('data'));
+        return view('Transaksi.index', compact('data'));
     }
 
     public function create()
     {
-        return view('transaksi.create', [
+        return view('Transaksi.create', [
             'kategori' => Kategori::all(),
             'wallet' => Wallet::all()
         ]);
@@ -61,6 +61,6 @@ class TransaksiController extends Controller
 
         $wallet->save();
 
-        return redirect('/transaksi')->with('success','Transaksi berhasil');
+        return redirect('/Transaksi')->with('success','Transaksi berhasil');
     }
 }
