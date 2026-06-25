@@ -29,6 +29,7 @@ class TransaksiController extends Controller
             'kategori_id' => 'required',
             'wallet_id' => 'required',
             'jumlah' => 'required|numeric|min:1',
+            'path' => 'nullable|mimes:png,jpg,jpeg,pdf|max:2048',
             'tipe' => 'required'
         ]);
 
@@ -42,6 +43,14 @@ class TransaksiController extends Controller
 
         // simpan transaksi
         Transaksi::create($r->all());
+
+        // Data transaksi
+        $data = $r->except('path');
+
+        // Upload file jika ada
+        if ($r->hasFile('path')) {
+        $data['path'] = $r->file('path')->store('transaksi', 'public');
+        }
 
         // 🔥 update saldo
         if ($r->tipe == 'pemasukan') {

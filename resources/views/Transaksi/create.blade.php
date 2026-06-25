@@ -13,7 +13,7 @@
 </div>
 @endif
 
-<form method="POST" action="/transaksi">
+<form method="POST" action="/transaksi" enctype="multipart/form-data">
 @csrf
 
 <div class="mb-2">
@@ -55,12 +55,24 @@
     <input type="number" name="jumlah" class="form-control" value="{{ old('jumlah') }}">
 </div>
 
+<div class="mb-2">
+    <label>Bukti Transaksi</label>
+    <input type="file"
+           name="path"
+           class="form-control"
+           accept=".jpg,.jpeg,.png,.pdf">
+</div>
+
 <div class="mb-3">
     <label>Tipe</label>
     <select name="tipe" class="form-control">
         <option value="">-- Pilih Tipe --</option>
-        <option value="pemasukan" {{ old('tipe')=='pemasukan'?'selected':'' }}>Pemasukan</option>
-        <option value="pengeluaran" {{ old('tipe')=='pengeluaran'?'selected':'' }}>Pengeluaran</option>
+        <option value="pemasukan" {{ old('tipe')=='pemasukan'?'selected':'' }}>
+            Pemasukan
+        </option>
+        <option value="pengeluaran" {{ old('tipe')=='pengeluaran'?'selected':'' }}>
+            Pengeluaran
+        </option>
     </select>
 </div>
 

@@ -14,6 +14,7 @@ class Transaksi extends Model
         'wallet_id',
         'deskripsi',
         'jumlah',
-        'tipe'
+        'tipe',
+        'path'
     ];
 }

@@ -21,6 +21,7 @@
         <th>Kategori</th>
         <th>Wallet</th>
         <th>Deskripsi</th>
+        <th>Bukti</th>
         <th>Tipe</th>
         <th>Jumlah</th>
     </tr>
@@ -29,11 +30,19 @@
     <tr>
         <td>{{ $i + 1 }}</td>
         <td>{{ $t->tanggal }}</td>
-
         <td>{{ $t->kategori_id }}</td>
         <td>{{ $t->wallet_id }}</td>
-
         <td>{{ $t->deskripsi }}</td>
+
+        <td>
+            @if($t->path)
+                <a href="{{ asset('storage/'.$t->path) }}" target="_blank" class="btn btn-info btn-sm">
+                    Lihat
+                </a>
+            @else
+                -
+            @endif
+        </td>
 
         <td>
             @if($t->tipe == 'pemasukan')
