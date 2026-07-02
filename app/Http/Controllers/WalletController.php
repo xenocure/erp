@@ -31,7 +31,7 @@ class WalletController extends Controller
             'saldo' => $r->saldo
         ]);
 
-        return redirect('/Wallet');
+        return redirect('wallet');
     }
 
     public function update(Request $r, $id)

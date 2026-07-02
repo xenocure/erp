@@ -31,7 +31,7 @@ class KategoriController extends Controller
             'tipe' => $r->tipe
         ]);
 
-        return redirect('/Kategori');
+        return redirect('kategori');
     }
 
     public function destroy($id)

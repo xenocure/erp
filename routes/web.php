@@ -28,9 +28,9 @@ Route::middleware(['authcheck'])->group(function () {
     // DOWNLOAD PDF
     Route::get('/laporan/pdf', [DashboardController::class, 'downloadPdf']);
 
-    Route::resource('/transaksi', TransaksiController::class);
-    Route::resource('/kategori', KategoriController::class);
-    Route::resource('/wallet', WalletController::class);
-    Route::resource('/budget', BudgetController::class);
+    Route::resource('transaksi', TransaksiController::class);
+    Route::resource('kategori', KategoriController::class);
+    Route::resource('wallet', WalletController::class);
+    Route::resource('budget', BudgetController::class);
 
 });

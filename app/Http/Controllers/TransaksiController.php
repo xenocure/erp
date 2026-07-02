@@ -61,6 +61,6 @@ class TransaksiController extends Controller
 
         $wallet->save();
 
-        return redirect('/Transaksi')->with('success','Transaksi berhasil');
+        return redirect('/transaksi')->with('success','Transaksi berhasil');
     }
 }

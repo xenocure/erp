@@ -27,8 +27,8 @@ class DashboardController extends Controller
         $score = 100;
         $expenseRatio = 0;
 
+        // 1. Penalti dari Rasio Pengeluaran
         if ($pemasukan > 0) {
-
             $expenseRatio = $pengeluaran / $pemasukan;
 
             if ($expenseRatio > 1) {
@@ -38,14 +38,15 @@ class DashboardController extends Controller
             }
         }
 
-        // Cek saldo
-        if ($saldo < 500000) {
+        // 2. Penalti Saldo 
+        if ($pemasukan > 0) {
+            $saldoRatio = $saldo / $pemasukan;   // Saldo dibanding pemasukan
 
-            $score -= 20;
-
-        } elseif ($saldo < 1000000) {
-
-            $score -= 10;
+            if ($saldoRatio < 0.3) {        // Saldo < 30% dari pemasukan
+                $score -= 20;
+            } elseif ($saldoRatio < 0.6) {  // Saldo < 60% dari pemasukan
+                $score -= 10;
+            }
         }
 
         // Batasi skor 0–100
@@ -53,15 +54,10 @@ class DashboardController extends Controller
 
         // Status financial
         if ($score >= 75) {
-
             $status = 'Sehat';
-
         } elseif ($score >= 50) {
-
             $status = 'Cukup';
-
         } else {
-
             $status = 'Buruk';
         }
 
@@ -90,7 +86,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    // Download laporan PDF
+    // Download laporan PDF (tidak diubah)
     public function downloadPdf()
     {
         $transaksi = Transaksi::all();
